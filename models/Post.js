@@ -15,7 +15,7 @@ const postSchema = new Schema({
     likes: [
         {
             username: String,
-            createdAt: Strings
+            createdAt: String
         }
     ],
     user: {
@@ -24,4 +24,4 @@ const postSchema = new Schema({
     }
 })
 
-module.exports = model('Post,' postSchema);
+module.exports = model('Post', postSchema);
