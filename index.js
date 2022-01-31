@@ -12,7 +12,7 @@ const server = new ApolloServer({
 
 mongoose
     // originally had below as but was not working || .connect(MONGODB, { useNewUrlParser: true })
-    .connect(MONGODB, { })
+    .connect(MONGODB, {})
 
     .then (() => {
             console.log('MongoDB Connected')
