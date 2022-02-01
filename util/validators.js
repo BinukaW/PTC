@@ -11,7 +11,7 @@ module.exports.validateRegisterInput = (
     if (email.trim() === '') {
       errors.email = 'Email must not be empty';
     } else {
-        // Check string is an email format
+        // Check characters entered into email field is a string in an email format
         const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
         if (!email.match(regEx)) {
           errors.email = 'Email must be a valid email address';
