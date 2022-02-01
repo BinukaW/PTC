@@ -9,8 +9,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
-  },
+  "license": "ISC",
+  
   "devDependencies": {
     "nodemon": "^2.0.15",
     "webpack": "^5.68.0"
