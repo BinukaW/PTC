@@ -19,7 +19,7 @@ module.exports = {
                 if(post){
                     return post;
                 } else {
-                    throw new Error('Post not found');
+                    throw new Error('Post not found.');
                 }
             } catch (err) {
                 throw new Error(err);
@@ -30,7 +30,10 @@ module.exports = {
     // Context allows us to access the request body and confirm user is authenticated
         async createPost(_, { body }, context){
             const user = checkAuth(context);
-            console.log(user);
+            
+            if (args.body.trim() === '') {
+                throw new Error('Post body must not be empty.');
+            }
 
             const newPost = new Post({
                 body,
@@ -55,9 +58,9 @@ module.exports = {
                 // if post is created by user, allow user to delete post
                 if(user.username === post.username){
                     await post.delete();
-                    return 'Post deleted successfully';
+                    return 'Post deleted successfully.';
                 } else {
-                    throw new AuthenticationError('Action not allowed');
+                    throw new AuthenticationError('Action not allowed.');
                 }
             } catch(err){
                 throw new Error(err);
