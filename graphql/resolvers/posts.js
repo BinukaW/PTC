@@ -41,6 +41,10 @@ module.exports = {
 
             const post = await newPost.save();
 
+            context.pubsub.publish('NEW_POST', {
+                newPost: post
+            })
+
             return post;
         },
         async deletePost(_, { postId }, context){
@@ -48,6 +52,7 @@ module.exports = {
 
             try{
                 const post = await Post.findById(postId);
+                // if post is created by user, allow user to delete post
                 if(user.username === post.username){
                     await post.delete();
                     return 'Post deleted successfully';
@@ -57,6 +62,31 @@ module.exports = {
             } catch(err){
                 throw new Error(err);
             }
+        },
+        async likePost(_, { postId }, context){
+            const { username } = checkAuth(context);
+
+            const post = await Post.findById(postId);
+            if(post){
+                if(post.likes.find(like => like.username === username)){
+                    // If user has already liked post, unlike it
+                    post.likes = post.likes.filter(like => like.username !== username);
+                } else {
+                    // If the post is not yet liked, like post
+                    post.likes.push({
+                        username,
+                        createdAt: new Date().toISOString(),
+                    })
+                }
+                
+                await post.save();
+                return
+            }
         }
+    },
+    Subscription: {
+        newPost: {
+          subscribe: (_, __, { pubsub }) => pubsub.asyncIterator('NEW_POST')
+        }    
     }
-}
+};
