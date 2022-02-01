@@ -9,17 +9,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@google-cloud/pubsub": "^2.18.5",
-    "apollo-server": "^3.6.2",
-    "bcryptjs": "^2.4.3",
-    "graphql": "^16.3.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.8",
-    "pubsub": "^3.2.1"
+  "license": "ISC"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "webpack": "^5.68.0"
   }
 }

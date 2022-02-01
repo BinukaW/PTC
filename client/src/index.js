@@ -1,8 +1,10 @@
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import ApolloProvider from './ApolloProvider';
+import App from './App';
 
-ReactDOM.render(ApolloProvider, document.getElementById('root'));
+import 'semantic-ui-css/semantic.min.css';
+
+ReactDOM.render(<App />, document.getElementById('root'));
 
 
 // Change unregister() to register() to make the app work offline and improve load-time.
