@@ -18,7 +18,7 @@ function MenuNav() {
         active={activeItem === 'home'}
         onClick={handleItemClick}
         as={Link}
-        to="/"
+        to="/home"
       />
       
       <Menu.Menu position="right">
