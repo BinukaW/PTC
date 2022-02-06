@@ -9,10 +9,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
-  },
+  "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.15",
     "webpack": "^5.68.0"
+  },
+  "dependencies": {
+    "apollo-server": "^3.6.2",
+    "express": "^4.17.2",
+    "pubsub": "^3.2.1"
   }
 }
