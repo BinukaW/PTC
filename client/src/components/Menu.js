@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/auth';
 
 function MenuNav() {
+  const { user, logout } = useContext(AuthContext)
   const pathname = window.location.pathname;
 
   const path = pathname === '/' ? 'home' : pathname.substring(1);
@@ -10,8 +12,23 @@ function MenuNav() {
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
-//   Each menu item below has a name and if the active property is true, that tab will be activated and highlighted
-  return (
+  const menuNavigation = user ? (
+    <Menu pointing secondary size="massive" color="violet">
+      <Menu.Item
+        name={user.username}
+        active
+        as={Link}
+        to="/home"
+      />
+      <Menu.Menu position="right">
+        <Menu.Item
+          name="logout"
+          onClick={logout}
+        />
+      </Menu.Menu>
+    </Menu>
+  ) : (
+    //   Each menu item below has a name and if the active property is true, that tab will be activated and highlighted
     <Menu pointing secondary size="massive" color="violet">
       <Menu.Item
         name="home"
@@ -39,6 +56,7 @@ function MenuNav() {
       </Menu.Menu>
     </Menu>
   );
+    return menuNavigation;
 }
 
 export default MenuNav;
