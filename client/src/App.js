@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client"
 import { Container } from 'semantic-ui-react';
 import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
 
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
@@ -19,8 +20,17 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:8088'
 });
 
+const authLink = setContext(() => {
+  const token = localStorage.getItem('jwtToken');
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 

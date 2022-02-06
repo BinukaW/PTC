@@ -33,13 +33,13 @@ function PostForm() {
         <h2>Create a post:</h2>
         <Form.Field>
           <Form.Input
-            placeholder="Hi World!"
+            placeholder="Write your message..."
             name="body"
             onChange={onChange}
             value={values.body}
             error={error ? true : false}
           />
-          <Button type="submit" color="teal">
+          <Button type="submit" color="purple">
             Submit
           </Button>
         </Form.Field>
