@@ -6,6 +6,5 @@ import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-
 // Change unregister() to register() to make the app work offline and improve load-time.
 serviceWorker.unregister();

@@ -2,22 +2,25 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client"
 import { Container } from 'semantic-ui-react';
+import { createHttpLink } from 'apollo-link-http';
 
 import MenuNav from './components/Menu';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+const httpLink = createHttpLink({
+  uri: 'http://localhost:8088'
+});
 
-// const client = new ApolloClient({
-//   uri: '/graphql',
-//   cache: new InMemoryCache()
-// });
-
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache()
+});
 
 function App() {
   return (
-    // <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
     <Router>
       <Container>
         <MenuNav />
@@ -27,7 +30,7 @@ function App() {
         <p>Hey i hope this works</p>
       </Container>
     </Router>
-    // </ApolloProvider>
+    </ApolloProvider>
   );
 }
 
