@@ -29,7 +29,7 @@ function authReducer(state, action) {
         ...state,
         user: action.payload
       };
-    // When logging out, clear the data
+// When logging out, clear the data
     case 'LOGOUT':
       return {
         ...state,
@@ -44,6 +44,7 @@ function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   function login(userData) {
+//   Persist token in storage once logged out
     localStorage.setItem('jwtToken', userData.token);
     dispatch({
       type: 'LOGIN',
@@ -52,6 +53,7 @@ function AuthProvider(props) {
   }
 
   function logout() {
+// Remove token once logged out
     localStorage.removeItem('jwtToken');
     dispatch({ type: 'LOGOUT' });
   }

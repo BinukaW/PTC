@@ -26,13 +26,14 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    // AuthProvider provides access to user context
+// AuthProvider provides access to user context
     <AuthProvider>
       <ApolloProvider client={client}>
         <Router>
           <Container>
             <MenuNav />
             <Route exact path='/' component={Home}/>
+{/* If there is no user logged in, display the AuthRoute components */}
             <AuthRoute exact path="/login" component={Login}/>
             <AuthRoute exact path="/register" component={Register}/>
             <p>Hey i hope this works</p>
