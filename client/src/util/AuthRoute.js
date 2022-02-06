@@ -10,7 +10,8 @@ function AuthRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        user ? <Redirect to="/" /> : <Component {...props} />
+// If we have a user then redirect (to avoid logged in users accessing register / login pages)
+        user ? <Redirect to="/home" /> : <Component {...props} />
       }
     />
   );
