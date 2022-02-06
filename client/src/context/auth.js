@@ -15,6 +15,7 @@ if (localStorage.getItem('jwtToken')) {
   }
 }
 
+// Update user context to the user credentials entered
 const AuthContext = createContext({
   user: null,
   login: (userData) => {},
@@ -28,6 +29,7 @@ function authReducer(state, action) {
         ...state,
         user: action.payload
       };
+    // When logging out, clear the data
     case 'LOGOUT':
       return {
         ...state,
