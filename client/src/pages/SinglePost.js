@@ -85,6 +85,7 @@ function SinglePost(props) {
   return postMarkup;
 }
 
+// Mutation
 const FETCH_POST_QUERY = gql`
   query($postId: ID!) {
     getPost(postId: $postId) {
