@@ -21,12 +21,13 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:8088'
 });
 
-const authLink = setContext(() => {
+const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('jwtToken');
   return {
     headers: {
-      Authorization: token ? `Bearer ${token}` : ''
-    }
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
   };
 });
 
