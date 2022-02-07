@@ -5,12 +5,15 @@ import moment from 'moment';
 
 import { AuthContext} from '../context/auth';
 import LikeButton from './LikeButton';
+import DeleteButton from './DeleteButton';
+import PopupPreset from '../util/PopupPreset';
 
 function PostCard({
   post: { body, createdAt, id, username, likeCount, commentCount, likes }
 }) {
   const { user } = useContext(AuthContext);
 
+// TODO: check this is adding function lol
   function likePost() {
     console.log('Like post!!');
   }
@@ -31,25 +34,18 @@ function PostCard({
       </Card.Content>
       <Card.Content extra>
       <LikeButton user={user} post={{ id, likes, likeCount }} />
+      <PopupPreset content="Message on this post">
         <Button as="div" labelPosition="right" as={Link} to={`/posts/${id}`}>
-          <Button color="blue" basic>
-            <Icon name="comments" />
+            <Button color="blue" basic>
+              <Icon name="comments" />
+            </Button>
+            <Label basic color="blue" pointing="left">
+              {commentCount}
+            </Label>
           </Button>
-          <Label basic color="blue" pointing="left">
-            {commentCount}
-          </Label>
-        </Button>
+      </PopupPreset>  
 {/* If username = username of post means post is by this user */}
-        {user && user.username === username && (
-          <Button 
-            as="div" 
-            color="red" 
-            floated="right"
-            onClick={() => console.log('Delete post')}
-          >
-            <Icon name="trash" style={{ margin: 0 }} />
-          </Button>
-        )}
+        {user && user.username === username && <DeleteButton postId={id} />}
       </Card.Content>
     </Card>
   );
