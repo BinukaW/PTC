@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { Button, Confirm, Icon } from 'semantic-ui-react';
 
 import { FETCH_POSTS_QUERY } from '../util/graphql';
+import PopupPreset from '../util/PopupPreset';
 
 function DeleteButton({ postId, commentId, callback }) {
 // When user clicks delete, confirm they want to perform this action before deleting
@@ -33,14 +34,16 @@ const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
   return (
 // Wrapped everything in a fragment to avoid errors as there are two sibling components in use
     <>
-      <Button
-        as="div"
-        color="red"
-        floated="right"
-        onClick={() => setConfirmOpen(true)}
-      >
-        <Icon name="trash" style={{ margin: 0 }} />
-      </Button>
+      <PopupPreset content={commentId ? "Delete message" : "Delete post"}>
+        <Button
+          as="div"
+          color="red"
+          floated="right"
+          onClick={() => setConfirmOpen(true)}
+        >
+          <Icon name="trash" style={{ margin: 0 }} />
+        </Button>
+      </PopupPreset>
 {/* When user clicks delete, confirm they want to perform this action before deleting */}
       <Confirm
         open={confirmOpen}

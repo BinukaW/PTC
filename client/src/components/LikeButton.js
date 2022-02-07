@@ -4,6 +4,8 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Button, Label, Icon } from 'semantic-ui-react';
 
+import PopupPreset from '../util/PopupPreset';
+
 function LikeButton({ user, post: { id, likeCount, likes } }) {
   const [liked, setLiked] = useState(false);
 
@@ -35,7 +37,7 @@ function LikeButton({ user, post: { id, likeCount, likes } }) {
 
   return (
     <Button as="div" labelPosition="right" onClick={likePost}>
-      {likeButton}
+      <PopupPreset content={liked ? 'Unlike' : 'Like'}>{likeButton}</PopupPreset>
       <Label basic color="teal" pointing="left">
         {likeCount}
       </Label>
