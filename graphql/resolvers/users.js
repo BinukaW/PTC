@@ -22,6 +22,7 @@ function generateToken(user) {
 module.exports = {
   Mutation: {
     async login(_, { username, password }) {
+      
       const { errors, valid } = validateLoginInput(username, password);
     // If not valid throw error
       if (!valid) {
@@ -29,6 +30,7 @@ module.exports = {
       }
     //   Find username from db
       const user = await User.findOne({ username });
+      console.log("User login error testing", user);
     // If no username found throw error
       if (!user) {
         errors.general = 'User not found';

@@ -17,8 +17,12 @@
   "dependencies": {
     "@google-cloud/pubsub": "^2.18.5",
     "apollo-server": "^3.6.2",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "mongoose": "^6.2.0",
     "pubsub": "^3.2.1"
   }
 }
