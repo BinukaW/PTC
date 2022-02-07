@@ -21,6 +21,7 @@ function SinglePost(props) {
     }
   });
 
+// deletePostCallback directs user back to Home upon deleting
   function deletePostCallback() {
     props.history.push('/');
   }
@@ -73,6 +74,7 @@ function SinglePost(props) {
                   </Label>
                 </Button>
                 {user && user.username === username && (
+// deletePostCallback directs user back to Home upon deleting
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
               </Card.Content>
