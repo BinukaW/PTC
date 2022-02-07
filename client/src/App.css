@@ -5,7 +5,12 @@
     margin-top: 10px;
 }
 
-/* .form-container {
+.form-container {
     width: 400px;
     margin: auto;
-} */
+}
+
+/* Change later */
+.ui.teal.button:focus,.ui.teal.buttons .button:focus{
+    background-color: darkslateblue;
+}
