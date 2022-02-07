@@ -15,6 +15,7 @@ import MenuNav from './components/Menu';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import SinglePost from './pages/SinglePost'
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:8088'
@@ -46,7 +47,7 @@ function App() {
 {/* If there is no user logged in, display the AuthRoute components */}
             <AuthRoute exact path="/login" component={Login}/>
             <AuthRoute exact path="/register" component={Register}/>
-            <p>Hey i hope this works</p>
+            <Route exact path='/posts/:postId' component={SinglePost}/>
           </Container>
         </Router>
       </ApolloProvider>
