@@ -62,12 +62,12 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
   //   } = data.getPost;
 
     postMarkup = (
-      loading? <h1>LOADING</h1>:
+      loading? <h1>Loading...</h1>:
       <Grid>
         <Grid.Row>
           <Grid.Column width={2}>
             <Image
-              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+              src="https://i.kym-cdn.com/photos/images/newsfeed/001/725/812/213.png"
               size="small"
               float="right"
             />

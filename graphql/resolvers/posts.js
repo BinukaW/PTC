@@ -72,6 +72,7 @@ console.log('getPost', postId);
             const { username } = checkAuth(context);
 
             const post = await Post.findById(postId);
+            console.log(post);
             if(post){
                 if(post.likes.find(like => like.username === username)){
                     // If user has already liked post, unlike it
@@ -85,7 +86,7 @@ console.log('getPost', postId);
                 }
                 
                 await post.save();
-                return
+                return post;
             }
         }
     },
