@@ -30,12 +30,15 @@ console.log('getPost', postId);
     },
     Mutation: {
     // Context allows us to access the request body and confirm user is authenticated
-        async createPost(_, { body }, context){
+        async createPost(_, { args }, context){
             const user = checkAuth(context);
+            console.log(context.req.body, "context");
             
-            if (args.body.trim() === '') {
+            if (context?.req?.body?.variables?.body === '') {
                 throw new Error('Post body must not be empty.');
             }
+
+            const body = context.req.body.variables.body;
 
             const newPost = new Post({
                 body,
@@ -43,13 +46,14 @@ console.log('getPost', postId);
                 username: user.username,
                 createdAt: new Date().toISOString()
             });
-
+            console.log(newPost, "newPost");
             const post = await newPost.save();
-
+            console.log(post, "post");
+/*
             context.pubsub.publish('NEW_POST', {
                 newPost: post
             })
-
+*/
             return post;
         },
         async deletePost(_, { postId }, context){
@@ -72,7 +76,7 @@ console.log('getPost', postId);
             const { username } = checkAuth(context);
 
             const post = await Post.findById(postId);
-            console.log(post);
+
             if(post){
                 if(post.likes.find(like => like.username === username)){
                     // If user has already liked post, unlike it

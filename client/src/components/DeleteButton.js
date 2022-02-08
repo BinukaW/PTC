@@ -7,24 +7,34 @@ import { FETCH_POSTS_QUERY } from '../util/graphql';
 import PopupPreset from '../util/PopupPreset';
 
 function DeleteButton({ postId, commentId, callback }) {
-// When user clicks delete, confirm they want to perform this action before deleting
-    const [confirmOpen, setConfirmOpen] = useState(false);
+  // When user clicks delete, confirm they want to perform this action before deleting
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
-// Dynamically delete either comment or post depending on the ID
-const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
+  // Dynamically delete either comment or post depending on the ID
+  const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
 
   const [deletePostOrMutation] = useMutation(mutation, {
     update(proxy) {
       setConfirmOpen(false);
-      if(!commentId){
+      if (!commentId) {
         const data = proxy.readQuery({
-            query: FETCH_POSTS_QUERY
-          });
-          data.getPosts = data.getPosts.filter((p) => p.id !== postId);
-          proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+          query: FETCH_POSTS_QUERY,
+        });
+
+        let newData = data.getPosts.filter((p) => p.id !== postId);
+        proxy.writeQuery({
+          query: FETCH_POSTS_QUERY,
+          data: {
+            ...data,
+            getPosts: {
+              newData,
+            },
+          },
+        });
       }
       if (callback) callback();
     },
+
     variables: {
       postId,
       commentId
@@ -32,7 +42,7 @@ const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
     }
   });
   return (
-// Wrapped everything in a fragment to avoid errors as there are two sibling components in use
+    // Wrapped everything in a fragment to avoid errors as there are two sibling components in use
     <>
       <PopupPreset content={commentId ? "Delete message" : "Delete post"}>
         <Button
@@ -44,7 +54,7 @@ const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
           <Icon name="trash" style={{ margin: 0 }} />
         </Button>
       </PopupPreset>
-{/* When user clicks delete, confirm they want to perform this action before deleting */}
+      {/* When user clicks delete, confirm they want to perform this action before deleting */}
       <Confirm
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
