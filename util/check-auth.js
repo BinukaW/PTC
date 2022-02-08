@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../config');
 
 module.exports = (context) => {
-    // Context = {... headers}
+    Context = {... headers}
     const authHeader = context.req.header.authorization;
     if(authHeader){
         // Bearer

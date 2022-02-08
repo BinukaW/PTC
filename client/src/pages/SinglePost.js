@@ -43,7 +43,7 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
 
 // deletePostCallback directs user back to Home upon deleting
   function deletePostCallback() {
-    props.history.push('/');
+    props.history.push('/Home');
   }
 
   let postMarkup;
