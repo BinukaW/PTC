@@ -17,12 +17,16 @@ function SinglePost(props) {
   const [comment, setComment] = useState('');
 
   const {
-    data: { getPost }
+    loading,
+    // data: { getPost }
+    data
   } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId
     }
   });
+
+  console.log("Testing data collection", data)
 
 // On submitting the message, clear the field
 const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
@@ -39,25 +43,26 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
 
 // deletePostCallback directs user back to Home upon deleting
   function deletePostCallback() {
-    props.history.push('/');
+    props.history.push('/Home');
   }
 
   let postMarkup;
-  if (!getPost) {
-    postMarkup = <p>Loading post..</p>;
-  } else {
-    const {
-      id,
-      body,
-      createdAt,
-      username,
-      comments,
-      likes,
-      likeCount,
-      commentCount
-    } = getPost;
+  // if (//!data.getPost) {
+  //   postMarkup = <p>Loading post..</p>;
+  // } else {
+  //   const {
+  //     id,
+  //     body,
+  //     createdAt,
+  //     username,
+  //     comments,
+  //     likes,
+  //     likeCount,
+  //     commentCount
+  //   } = data.getPost;
 
     postMarkup = (
+      loading? <h1>LOADING</h1>:
       <Grid>
         <Grid.Row>
           <Grid.Column width={2}>
@@ -70,13 +75,13 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
           <Grid.Column width={10}>
             <Card fluid>
               <Card.Content>
-                <Card.Header>{username}</Card.Header>
-                <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
-                <Card.Description>{body}</Card.Description>
+                <Card.Header>{data.getPost.username}</Card.Header>
+                <Card.Meta>{moment(data.getPost.createdAt).fromNow()}</Card.Meta>
+                <Card.Description>{data.getPost.body}</Card.Description>
               </Card.Content>
               <hr />
               <Card.Content extra>
-                <LikeButton user={user} post={{ id, likeCount, likes }} />
+                {/* <LikeButton user={data.getPost.user} post={{ id, likeCount, likes }} /> */}
                 <PopupPreset content="Message on post">
                   <Button
                     as="div"
@@ -87,13 +92,13 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
                       <Icon name="comments" />
                     </Button>
                     <Label basic color="blue" pointing="left">
-                      {commentCount}
+                      {data.getPost.commentCount}
                     </Label>
                   </Button>
                 </PopupPreset>
-                {user && user.username === username && (
+                {user && user.username === data.getPost.username && (
 // deletePostCallback directs user back to Home upon deleting
-                  <DeleteButton postId={id} callback={deletePostCallback} />
+                  <DeleteButton postId={data.getPost.id} callback={deletePostCallback} />
                 )}
               </Card.Content>
             </Card>
@@ -124,12 +129,12 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
                 </Card.Content>
             </Card>}
 
-            {comments.map((comment) => (
+            {data.getPost.comments.map((comment) => (
               <Card fluid key={comment.id}>
                 <Card.Content>
 {/* Allow user who owns this comment access to delete button */}
                   {user && user.username === comment.username && (
-                    <DeleteButton postId={id} commentId={comment.id} />
+                    <DeleteButton postId={data.getPost.id} commentId={comment.id} />
                   )}
                   <Card.Header>{comment.username}</Card.Header>
                   <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
@@ -141,8 +146,9 @@ const [submitComment] = useMutation(CREATE_COMMENT_MUTATION, {
         </Grid.Row>
       </Grid>
     );
-  }
+  
   return postMarkup;
+//return <h1>Testing</h1>;
 }
 
 // Mutations

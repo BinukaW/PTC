@@ -16,7 +16,7 @@ function Home() {
     } = useQuery(FETCH_POSTS_QUERY);
   console.log('data', data)
     return (
-      loading? <h1>LAODING</h1>:
+      loading? <h1>LOADING</h1>:
         <Grid columns={3}>
         <Grid.Row className="page-title">
           <h1>Recent Posts</h1>
