@@ -44,6 +44,7 @@ function App() {
           <Container>
             <MenuNav />
             <Route exact path='/' component={Home}/>
+            <Route exact path='/home' component={Home}/>
 {/* If there is no user logged in, display the AuthRoute components */}
             <AuthRoute exact path="/login" component={Login}/>
             <AuthRoute exact path="/register" component={Register}/>
